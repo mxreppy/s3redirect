@@ -2,3 +2,5 @@
 build/
 dist/
 MANIFEST
+.tox
+s3redirect.egg-info

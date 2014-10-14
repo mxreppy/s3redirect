@@ -9,6 +9,7 @@ import sys
 import argparse
 from boto.s3.connection import S3Connection
 from boto.exception import S3ResponseError
+from boto import connect_s3
 
 
 def set_public_redirect(key, redirect_location):
@@ -129,9 +130,9 @@ def main():
 
     args = parser.parse_args()
     try:
-        conn = connection(filename=args.key)
-    except IOError, ValueError:
-        sys.exit('Unable to read key file: {0}'.format(args.key))
+        conn = connect_s3()
+    except Exception as e:
+        sys.exit('Unable to connect: %s' % str(e))
 
     try:
         bucket = conn.get_bucket(args.bucket)
